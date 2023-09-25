@@ -8,8 +8,6 @@ while i < len(data):
     while j < len(data):
         if j != i and data[j] % p == 0:
             del[data[j]]
-            if i>j:
-                i-=1
             j-=1
         j+=1
     i+=1
