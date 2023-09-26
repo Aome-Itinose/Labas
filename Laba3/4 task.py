@@ -1,15 +1,21 @@
 n = int(input("Введите число n: "))
 data = [x for x in range(2, n + 1)]
-krat7 = [x for x in range(2,n+1) if x%7==0]
-p, i = 0, 0
+krat7 = [x for x in range(2, n + 1) if x % 7 == 0]
+
+i = 0
+pop = int(n ** 0.5)
 while i < len(data):
-    p = data[i]
-    j = 0
-    while j < len(data):
-        if j != i and data[j] % p == 0:
-            del[data[j]]
-            j-=1
-        j+=1
-    i+=1
-print("a) Числа, кратные 7: ",*krat7)
-print("b) Простые числа: ", *data)
+    if data[i] > pop:
+        break
+    elif data[i] == pop:
+        del (data[i])
+        i -= 1
+    j = i + 1
+    while j<len(data):
+        if data[j]%data[i]==0:
+            del(data[j])
+            j -= 1
+        j += 1
+    i += 1
+print(*data)
+print(*krat7)

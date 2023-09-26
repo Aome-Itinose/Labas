@@ -6,7 +6,12 @@ for x in range(3):
     for y in range(5):
         data[x].append(list())
         for z in range(7):
-            data[x][y].append(random.randint(-1000, 1000))
+            data[x][y].append(random.randint(0, 9))
+
+for mat in data:
+    for matr in mat:
+        print(matr)
+    print()
 
 maxVal = -1001
 resX, resY, resZ = 0, 0, 0

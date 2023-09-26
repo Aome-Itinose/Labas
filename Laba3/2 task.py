@@ -4,7 +4,7 @@ data = list()
 n = int(input("Введите количество элементов в массиве: "))
 for i in range(n):
     data.append(random.randint(-1000, 1000))
-
+print(*data)
 firstData = list()
 secondData = list()
 for i in range(0, n):
