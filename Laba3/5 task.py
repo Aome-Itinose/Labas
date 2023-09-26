@@ -6,7 +6,10 @@ for i in range(n):
     data.append(list())
     for j in range(n):
         data[i].append(random.randint(0, 2))
+for i in data:
+    print(*i)
 
+print()
 cnt = 0
 for i in range(n):
     if data[i][i] == 0:
