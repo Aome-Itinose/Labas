@@ -1,81 +1,57 @@
 n = int(input("Введите количество вершин: "))
-matrix = [[0] * n for i in range(n)]
-a, b = 0, 0
-petli = False
-smej = [x for x in range(1, n + 1)]
-
-print("Введите граф. Для завершения вместо одного числа введите 0.")
+print("Чтобы закончить введите 0.")
+a, b = 1, 1
+data = list()
 while a != -1 and b != -1:
     a, b = map(int, input().split())
-    if a in smej:
-        smej.remove(a)
-    if b in smej:
-        smej.remove(b)
-
     a -= 1
     b -= 1
-    if a != -1 and b != -1:
-        if matrix[a][b] == 0:
-            matrix[a][b] += 1
-            matrix[b][a] += 1
-        else:
-            print("Этот путь уже введен.")
-        if a == b:
-            petli = True
+    if a == -1 or b == -1:
+        break
+    data.append([a, b])
 
-print("a)")
+l = len(data)
+matrix = [[0] * l for i in range(n)]
+for i in range(len(data)):
+    matrix[data[i][0]][i] += 1
+    matrix[data[i][1]][i] += 1
+
+for i in matrix:
+    print("\t", *i)
+
+print("a) ")
 for i in range(len(matrix)):
-    for j in range(len(matrix[i])):
-        print('\t', matrix[i][j], end=' ')
-    print()
+    print("\tИнцедентные ребра для вершины ", i + 1, " :",
+          ' '.join([str(j + 1) for j in range(len(matrix[i])) if matrix[i][j] != 0]))
 
-if petli:
-    print('\t', "В графе есть петли.")
+print("б) ")
+for i in range(len(matrix)):
+    print("\tСтепень вершины ", i + 1, " :", sum(matrix[i]))
+
+print("в) ")
+step0 = list()
+for i in range(len(matrix)):
+    if sum(matrix[i]) == 0:
+        step0.append(i + 1)
+if len(step0) == 0:
+    print("\tНет вершин со степенью 0.")
 else:
-    print('\t', "В графе нет петель.")
+    print("\tВершины со степенью 0:", ' '.join(map(str, step0)))
 
-print("b)")
-if len(smej) == 0:
-    print('\t', "В графе все вершины смежные.")
-else:
-    print('\t', "Вершины, не смежные с другими: " + ' '.join(map(str, smej)))
-
-print("в)")
-for i in range(len(matrix)):
-    print('\t', "Смежные вершины для вершины ", str(i + 1), ":",
-          ' '.join(map(str, [x + 1 for x in range(len(matrix[i])) if matrix[i][x] != 0])))
-
-print("г)")
-flag = True
-for i in range(len(matrix)):
-    for j in range(len(matrix[i])):
-        if matrix[i][j] == 0 and i != j:
-            flag = False
-    if flag:
-        print('\t', "Вершина, смежная со всеми другим: ", i + 1)
-    flag = True
-if not (flag):
-    print('\t', "Нет вершин, которые смежные со всеми другими.")
-
-step1 = False
-maxStep = 0
-print("д)")
+print("г) ")
+step1 = list()
 for i in range(len(matrix)):
     s = sum(matrix[i])
     if s == 1:
-        step1 = True
-    maxStep = max(maxStep, s)
-    print('\t', "Степень вершины ", str(i + 1), " - ", str(s))
-
-print("е)")
-if step1:
-    print('\t', "Вершины со степенью 1:", end=' ')
-    for i in range(len(matrix)):
-        if sum(matrix[i]) == 1:
-            print(i + 1, end=' ')
-    print()
+        step1.append(s)
+if len(step1) == 0:
+    print("\tНет вершин, инцедентных только одному ребру.")
 else:
-    print('\t', "Нет вершин со степенью 1.")
+    print("\tКоличество вершин, инцедентных только одному ребру: ", len(step1))
 
-print("ж)")
-print('\t', "Cтепень графа (максимальная степень его вершин) - ", maxStep)
+print("д) ")
+print("\tНаибольшее число смежных между собой ребер, инцидентных одной и той же вершине: ",
+      max([sum([1 for j in range(len(matrix[i])) if matrix[i][j] > 0]) for i in range(len(matrix))]))
+
+print("е) ")
+print("\tКоличество петель в графе: ", sum([1 for i in range(len(matrix)) if 2 in matrix[i]]))
