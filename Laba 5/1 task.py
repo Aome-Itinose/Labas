@@ -13,6 +13,7 @@ outputFile.write("1.\tСлово '" + word + "' встречается в тек
 newWord = input("Введите новое слово: ")
 outputFile.write("2. ")
 inputFile.seek(0)
+
 for line in inputFile:
     outputFile.write("\t" + line.replace(word, newWord))
 outputFile.write("\n\n")
