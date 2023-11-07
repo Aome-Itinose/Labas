@@ -7,9 +7,6 @@ pop = int(n ** 0.5)
 while i < len(data):
     if data[i] > pop:
         break
-    elif data[i] == pop:
-        del (data[i])
-        i -= 1
     j = i + 1
     while j<len(data):
         if data[j]%data[i]==0:
