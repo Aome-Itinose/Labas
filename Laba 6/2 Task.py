@@ -3,7 +3,14 @@ from random import *
 
 frameWidth = 500
 frameHeight = 600
+cnt = 0
 def motion():
+    global cnt
+    if cnt%100==0:
+        canvas.itemconfig(rect, fill="red")
+    elif cnt%50==0:
+        canvas.itemconfig(rect, fill="blue")
+    cnt += 1
     if canvas.coords(rect)[0] > 0:
         canvas.move(rect, -randint(0,frameWidth//100), 0)
     if canvas.coords(rect)[1]>0:

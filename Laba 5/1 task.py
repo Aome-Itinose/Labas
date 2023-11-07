@@ -23,6 +23,7 @@ def integersInText():
     cnt = 0
     for line in inputFile:
         cnt += len([x for x in re.findall(r'\d+', line) if int(x) % 1 == 0])
+    return cnt
 
 
 def removeExtraSpaces():
@@ -115,9 +116,10 @@ def countCharNumber():
                 cntNums += 1
     return [cntChars, cntNums]
 
+
 word = input("Введите слово: ")
 
-outputFile.write("1.\tСлово '" + str(countWord(word)) + "' встречается в тексте " + str(cnt) + " раз.\n\n")
+outputFile.write("1.\tСлово '" + str(word) + "' встречается в тексте " + str(countWord(word)) + " раз.\n\n")
 
 newWord = input("Введите новое слово: ")
 outputFile.write("2. ")
@@ -148,10 +150,8 @@ outputFile.write("10. ")
 deleteScopes()
 outputFile.write("\n\n")
 
-
 outputFile.write("11.\tНаибольшее число подрят идущих одинаковых символов: "
                  + str(largestNumberOfConsecutiveIdenticalCharacters()) + "\n\n")
-
 
 cntChars, cntNums = countCharNumber()
 outputFile.write("12.\tКоличество букв: " + str(cntChars) + "\n")

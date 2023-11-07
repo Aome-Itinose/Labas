@@ -1,18 +1,17 @@
+import pandas as pd
+
 n = 0
 stops = []
-matrix = []
 with open("resources/InputForTwo.txt", 'r', encoding="utf-8") as file:
     n = int(file.readline())
-    matrix = [[0] * n for i in range(n)]
     for i in range(n):
         stops.append(file.readline().strip())
-    for i in range(n):
-        line = list(map(int, file.readline().split()))
-        for j in range(n):
-            matrix[i][j] = line[j]
+
+matrix = pd.read_excel("inM.xlsx")
 
 for i in range(n):
     print(str(i), '-', stops[i])
+
 
 start = int(input("Введите начальную точку: ")) - 1
 end = int(input("Введите конечную точку: ")) - 1
@@ -23,16 +22,24 @@ min_dist = 0
 min_vertex = start
 dist = [INF] * n
 dist[start] = 0
+paths = [[start + 1]] * n
 while min_dist < INF:
     i = min_vertex
     used[i] = True
     for j in range(n):
         if matrix[i][j] != 0:
-            dist[j] = min(dist[j], dist[i] + matrix[i][j])
+            if dist[j] > dist[i] + matrix[i][j]:
+                dist[j] = dist[i] + matrix[i][j]
+                paths[j] = paths[i] + [j + 1]
     min_dist = INF
     for j in range(n):
         if not (used[j]) and dist[j] < min_dist:
             min_dist = dist[j]
             min_vertex = j
+            minPath = paths[j]
 
 print("Длина кратчайшего пути: ", dist[end])
+minPath = paths[end][::-1]
+for i in range(len(minPath) - 1):
+    print(stops[minPath[i] - 1], end=" <- ")
+print(stops[minPath[-1] - 1])
